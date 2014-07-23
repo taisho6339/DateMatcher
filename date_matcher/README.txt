@@ -6,9 +6,9 @@ Getting Started
 
 - cd <directory containing this file>
 
-- $venv/bin/python setup.py develop
+- $VENV/bin/python setup.py develop
 
-- $venv/bin/populate_date_matcher development.ini
+- $VENV/bin/initialize_date_matcher_db development.ini
 
-- $venv/bin/pserve development.ini
+- $VENV/bin/pserve development.ini
 
