@@ -15,9 +15,6 @@ class EventCreateController(object):
             action_controller = EventActionController(self.request)
             return action_controller.create_action_receive()
         else:
-            # if self.request.method == 'GET':
-            if self.request.matchdict['is_missed']:
-                return {'is_missed': True}
             return {"is_missed": False}
 
 
@@ -41,10 +38,11 @@ class EventActionController(object):
 
         return True
 
+    @view_config(renderer="../templates/create.pt")
     def create_action_receive(self):
         if self.validate_params():
             return HTTPFound(location=self.request.host_url)
-        return HTTPFound(location=self.request.route_url('create_page', is_missed=True))
+        return {"is_missed": True}
 
 
 

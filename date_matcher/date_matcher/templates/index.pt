@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="${request.static_url('date_matcher:static/pyramid-16x16.png')}">
-      <script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
-  <title>DateMatcherApplication</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="${request.static_url('date_matcher:static/pyramid-16x16.png')}">
+    <script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <title>DateMatcherApplication</title>
 </head>
 
 <body>
 
-  <div align="center">
-    <h1 >DateMatcherApp by taisho6339</h1>
+<div align="center">
+    <h1>DateMatcherApp by taisho6339</h1>
+
     <h2> イベント調整用アプリ(プロトタイプ)</h2>
-    <form action="/createEvent" method="POST" >
+
+    <form action="/createEvent">
         <input type="submit" value="イベントを作成する">
     </form>
-  </div>
+</div>
 
 </body>
 

@@ -13,10 +13,9 @@
     <script>
         $(function () {
             var now = new Date();
-            var date_str = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate();
+            var date_str = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate()
             $("#start_at").val(date_str);
             $("#end_at").val(date_str);
-            // $.datepicker.setDefaults( $.datepicker.regional[ "ja" ] );
             $("#start_at").datepicker();
             $("#end_at").datepicker();
         });
