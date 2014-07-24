@@ -14,7 +14,7 @@
   <div align="center">
     <h1 >DateMatcherApp by taisho6339</h1>
     <h2> イベント調整用アプリ(プロトタイプ)</h2>
-    <form action="/createPage" >
+    <form action="/createEvent" method="POST" >
         <input type="submit" value="イベントを作成する">
     </form>
   </div>
