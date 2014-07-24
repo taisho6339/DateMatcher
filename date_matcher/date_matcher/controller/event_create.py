@@ -4,7 +4,7 @@ from datetime import datetime
 from pyramid.httpexceptions import HTTPFound, HTTPBadRequest
 from pyramid.view import view_config
 
-from date_matcher.action.event_action import EventActionModel
+from date_matcher.action.event_create_action import EventActionModel
 
 
 class EventCreateController(object):

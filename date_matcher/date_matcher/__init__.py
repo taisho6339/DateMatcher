@@ -18,7 +18,7 @@ def main(global_config, **settings):
     config.add_route('home', '/')
     config.add_route('create_page', "/createEvent")
     config.add_route('create_success', "/createSuccess")
-    config.
+    config.add_route('event', "/event")
 
     config.scan()
 

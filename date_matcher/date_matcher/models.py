@@ -21,6 +21,9 @@ Base = declarative_base()
 
 # イベントテーブル
 class Event(Base):
+
+    STATUS_ACTIVE = 1
+    STATUS_DEACTIVE = 0
     __tablename__ = 't_events'
     _id = Column(Integer, primary_key=True)
     name = Column(Text, nullable=False)
