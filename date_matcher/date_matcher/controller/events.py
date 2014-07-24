@@ -4,6 +4,8 @@ from datetime import datetime
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 
+from date_matcher.action.event_action import EventActionModel
+
 
 class EventCreateController(object):
     def __init__(self, request):
@@ -51,6 +53,10 @@ class EventActionController(object):
     @view_config(renderer="../templates/create.pt")
     def create_action_receive(self):
         if self.validate_params():
+            action = EventActionModel(
+                {"event_name": self.event_name, "detail_comment": self.detail_comment, "start_at": self.start_at,
+                 "end_at": self.end_at})
+            action.add_to_table()
             return HTTPFound(location=self.request.host_url)
         return {"is_missed": True, "event_name": self.event_name, "detail_comment": self.detail_comment}
 
