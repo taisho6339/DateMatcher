@@ -17,8 +17,12 @@ class EventActionModel(object):
         self.params = params
 
     def add_to_table(self):
-        hash_str = make_hash(30)
+        self.hash_str = make_hash(30)
         with transaction.manager:
-            event = Event(self.params['event_name'], hash_str, self.params['detail_comment'], self.params['start_at'],
+            event = Event(self.params['event_name'], self.hash_str, self.params['detail_comment'],
+                          self.params['start_at'],
                           self.params['end_at'])
             DBSession.add(event)
+
+    def get_hash_str(self):
+        return self.hash_str

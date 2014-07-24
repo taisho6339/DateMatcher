@@ -1,7 +1,7 @@
 # coding: UTF-8
 from datetime import datetime
 
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPBadRequest
 from pyramid.view import view_config
 
 from date_matcher.action.event_action import EventActionModel
@@ -57,8 +57,21 @@ class EventActionController(object):
                 {"event_name": self.event_name, "detail_comment": self.detail_comment, "start_at": self.start_at,
                  "end_at": self.end_at})
             action.add_to_table()
-            return HTTPFound(location=self.request.host_url)
+            redirect_url = self.request.host_url + "/createSuccess?hash=" + action.get_hash_str()
+            return HTTPFound(location=redirect_url)
         return {"is_missed": True, "event_name": self.event_name, "detail_comment": self.detail_comment}
 
+
+class EventSuccessViewController(object):
+    def __init__(self, request):
+        self.request = request
+
+    @view_config(route_name="create_success", renderer="../templates/create_success.pt", request_method="GET")
+    def success_page_receive(self):
+        hash_str = self.request.GET.get('hash', '')
+        if hash_str == '':
+            return HTTPBadRequest()
+        event_url = self.request.host_url + "/event?hash=" + hash_str
+        return {"event_url": event_url}
 
 
