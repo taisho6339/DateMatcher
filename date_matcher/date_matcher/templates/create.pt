@@ -46,7 +46,7 @@
 
         <p><textarea name="detail_comment" rows="10" style="width:450px">${detail_comment}</textarea></p>
 
-        <h4>イベント候補期間</h4>
+        <h4>イベント期間</h4>
 
         <h4>開始</h4>
         <input id="start_at" tabindex="8" type="text" name="start_at">

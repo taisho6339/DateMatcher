@@ -1,26 +1,16 @@
+# coding: UTF-8
 from pyramid.httpexceptions import HTTPBadRequest
+
 from pyramid.view import view_config
 
-from date_matcher.models import DBSession, Event
+from date_matcher.controller.event_base import EventBaseController
 
 
-__author__ = 'taisho6339'
-# coding: UTF-8
-
-class EventViewController(object):
-    def __init__(self, request):
-        self.request = request
-
+class EventViewController(EventBaseController):
     @view_config(route_name="event", renderer="../templates/event.pt")
     def event_view_receive(self):
-        hash_str = self.request.GET.get('hash', '')
-        if hash_str == '':
+        if not super(EventViewController, self).validate_hash():
             return HTTPBadRequest()
-
-        event = DBSession.query(Event).filter(Event.hash_id == hash_str).filter(
-            Event.status == Event.STATUS_ACTIVE).first()
-
-        if event is None:
-            return HTTPBadRequest()
-
-        return {"event_name": event.name}
+        user_add_page = self.request.host_url + "/addDate?hash=" + self.hash_str
+        return {"event_name": self.event.name, "event_detail": self.event.detail_comment,
+                "user_add_page": user_add_page}

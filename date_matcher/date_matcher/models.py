@@ -21,9 +21,9 @@ Base = declarative_base()
 
 # イベントテーブル
 class Event(Base):
-
     STATUS_ACTIVE = 1
     STATUS_DEACTIVE = 0
+
     __tablename__ = 't_events'
     _id = Column(Integer, primary_key=True)
     name = Column(Text, nullable=False)
@@ -48,6 +48,10 @@ class User(Base):
     name = Column(Text, nullable=False)
     event_id = Column(Integer, nullable=False)
 
+    def __init__(self, name, event_id):
+        self.name = name
+        self.event_id = event_id
+
 
 # 日にちテーブル,ユーザの一日の状態を示す
 class Date(Base):
@@ -58,5 +62,7 @@ class Date(Base):
     event_id = Column(Integer, nullable=False)
     status = Column(Integer, default=1)
 
-
-# Index('my_index', MyModel.name, unique=True, mysql_length=255)
+    def __init__(self, date, user_id, event_id):
+        self.date = date
+        self.user_id = user_id
+        self.event_id = event_id

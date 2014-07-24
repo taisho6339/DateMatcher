@@ -14,10 +14,10 @@
 
     <h1>DateMatcherApp by taisho6339</h1>
 
-    <h2> イベント調整用アプリ(プロトタイプ)</h2>
+    <h2>イベント名:${event_name}</h2>
+    <h4>${event_detail}</h4>
 
-    <h4>イベント名:${event_name}</h4>
-
+    <input type="button" value="新規ユーザ日程登録" onClick="location.href='${user_add_page}'">
 
 </div>
 
