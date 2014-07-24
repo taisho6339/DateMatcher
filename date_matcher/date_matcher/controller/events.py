@@ -1,6 +1,7 @@
 # coding: UTF-8
-from pyramid.httpexceptions import HTTPFound
+from datetime import datetime
 
+from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 
 
@@ -15,7 +16,7 @@ class EventCreateController(object):
             action_controller = EventActionController(self.request)
             return action_controller.create_action_receive()
         else:
-            return {"is_missed": False}
+            return {"is_missed": False, "event_name": "", "detail_comment": ""}
 
 
 class EventActionController(object):
@@ -33,16 +34,25 @@ class EventActionController(object):
         self.start_at = self.request.POST.get('start_at')
         self.end_at = self.request.POST.get('end_at')
 
-        if self.event_name == '' or self.detail_comment == '' or self.start_at == '' or self.end_at == '':
+        date_start = datetime.strptime(self.start_at, '%Y/%m/%d')
+        date_end = datetime.strptime(self.end_at, '%Y/%m/%d')
+
+        # 必須項目は足りているか
+        if self.event_name == '' or self.start_at == '' or self.end_at == '':
+            return False
+
+        # 開始と終了は適正か
+        if date_end <= date_start:
             return False
 
         return True
+
 
     @view_config(renderer="../templates/create.pt")
     def create_action_receive(self):
         if self.validate_params():
             return HTTPFound(location=self.request.host_url)
-        return {"is_missed": True}
+        return {"is_missed": True, "event_name": self.event_name, "detail_comment": self.detail_comment}
 
 
 
