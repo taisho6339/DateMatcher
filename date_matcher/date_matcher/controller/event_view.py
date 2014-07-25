@@ -1,6 +1,5 @@
 # coding: UTF-8
 from pyramid.httpexceptions import HTTPBadRequest
-
 from pyramid.view import view_config
 
 from date_matcher.controller.event_base import EventBaseController

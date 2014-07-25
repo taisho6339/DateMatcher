@@ -23,6 +23,8 @@
 
 <div id="add_form">
 
+    <h5 id="err_msg" style="color:red"></h5>
+
     <h4>名前</h4>
 
     <p><input type="text" id="user_name" name="name" value="" width="150"/></p>

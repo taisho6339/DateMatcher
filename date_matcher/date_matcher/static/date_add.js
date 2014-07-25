@@ -31,28 +31,46 @@ function add_date_content() {
     setup_datepicker();
 }
 
+function add_error_message(msg) {
+    $("#err_msg").text(msg);
+}
+
 function request_post() {
-    var url = "addDate";
+    var url = "addDateAction";
 
     var date_content = $("#date_add_area input");
     var date_json_array = [];
     date_content.each(function (i, child) {
-        if (child.value != '')
+        if (child.value != '') {
             date_json_array.push({
                 date: child.value
             })
+        }
     });
 
     var json = {
         user_name: $("#user_name").val(),
-        choose_method: $("#add_form input[name='choose_method']").value,
+        choose_method: $("#add_form input[name='choose_method']:checked").val(),
         hash: $("#hash_id").val(),
         dates: date_json_array
     };
-    $.post(url, json, function (result) {
-    }, 'json');
-    
-    console.log(json);
+
+    $.ajax(
+        {
+            async: false,
+            type: 'POST',
+            url: url,
+            data: JSON.stringify(json),
+            contentType: "application/json; charset=utf-8",
+            success: function (data, status) {
+                console.log(data);
+                if (data["status"] == 200)
+                    window.location.href = data["redirect_url"];
+                else
+                    add_error_message(data["err_message"]);
+            }
+        }
+    );
 }
 
 $(function () {

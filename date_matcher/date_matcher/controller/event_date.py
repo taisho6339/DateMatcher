@@ -1,18 +1,36 @@
 # coding: UTF-8
+
 from pyramid.httpexceptions import HTTPBadRequest
 
 from pyramid.view import view_config
 
+from date_matcher.controller.base import BaseController
+
 from date_matcher.controller.event_base import EventBaseController
 
 
-class EventDateAddController(EventBaseController):
-    def __init__(self, request):
-        self.request = request
-
+class EventDateAddViewController(EventBaseController):
     @view_config(route_name="date_add", renderer="../templates/date_add.pt")
     def add_date_receive(self):
-        if not super(EventDateAddController, self).validate_hash():
+        if not super(EventDateAddViewController, self).validate_hash():
             return HTTPBadRequest()
         return {"event_hash": self.hash_str, "event_name": self.event.name}
 
+
+class EventDateAddActionController(BaseController):
+    def validate_params(self):
+        params = self.request.json_body
+        hash = params.get('hash', "")
+        user_name = params.get('user_name', "")
+        choose_method = params.get('choose_method', "")
+        dates = params.get('dates', None)
+        if hash == "" or user_name == "" or choose_method == "" or len(dates) == 0:
+            return False
+        return True
+
+    @view_config(route_name="date_add_action", request_method="POST", renderer="json")
+    def add_date_action_receive(self):
+        if not self.validate_params():
+            return {"status": 400, "err_message": "正しく入力してください。"}
+        redirect_url = self.request.host_url + "/event?hash=" + self.request.json_body.get("hash", "");
+        return {"status": 200, "redirect_url": redirect_url}

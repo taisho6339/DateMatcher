@@ -2,18 +2,16 @@
 from datetime import datetime
 
 from pyramid.httpexceptions import HTTPFound, HTTPBadRequest
+
 from pyramid.view import view_config
 
 from date_matcher.action.event_create_action import EventActionModel
+from date_matcher.controller.base import BaseController
 
 
-class EventCreateController(object):
-    def __init__(self, request):
-        self.request = request
-
+class EventCreateViewController(BaseController):
     @view_config(route_name="create_page", renderer="../templates/create.pt")
     def create_page_receive(self):
-
         if 'submitted' in self.request.params:
             action_controller = EventActionController(self.request)
             return action_controller.create_action_receive()
@@ -62,10 +60,7 @@ class EventActionController(object):
         return {"is_missed": True, "event_name": self.event_name, "detail_comment": self.detail_comment}
 
 
-class EventSuccessViewController(object):
-    def __init__(self, request):
-        self.request = request
-
+class EventSuccessViewController(BaseController):
     @view_config(route_name="create_success", renderer="../templates/create_success.pt", request_method="GET")
     def success_page_receive(self):
         hash_str = self.request.GET.get('hash', '')
