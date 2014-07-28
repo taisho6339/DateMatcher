@@ -20,6 +20,7 @@
 
 <h2>イベント名:${event_name}</h2>
 
+<h3>候補期間:${event_start}〜${event_end}</h3>
 
 <div id="add_form">
 

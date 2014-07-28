@@ -55,14 +55,18 @@ class User(Base):
 
 # 日にちテーブル,ユーザの一日の状態を示す
 class Date(Base):
+    STATUS_ACTIVE = 1
+    STATUS_DEACTIVE = 0
+
     __tablename__ = "t_dates"
     _id = Column(Integer, primary_key=True, autoincrement=True)
     date = Column(Text, nullable=False)
     user_id = Column(Integer, nullable=False)
     event_id = Column(Integer, nullable=False)
-    status = Column(Integer, default=1)
+    status = Column(Integer)
 
-    def __init__(self, date, user_id, event_id):
+    def __init__(self, date, user_id, event_id, status):
         self.date = date
         self.user_id = user_id
         self.event_id = event_id
+        self.status = status
