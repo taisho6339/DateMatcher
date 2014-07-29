@@ -33,7 +33,7 @@ class EventDateAddActionController(BaseController):
     @view_config(route_name="date_add_action", request_method="POST", renderer="json")
     def add_date_action_receive(self):
         if not self.validate_params():
-            return {"status": 400, "err_message": "正しく入力してください。"}
+            return {"status": 400, "err_message": "そのユーザはすでに存在するか、値を正しく入力してください。"}
 
         action = EventDateAddAction(self.request.json_body)
         is_success = action.add_to_date_table()
@@ -41,4 +41,4 @@ class EventDateAddActionController(BaseController):
             redirect_url = self.request.host_url + "/event?hash=" + self.request.json_body.get("hash", "");
             return {"status": 200, "redirect_url": redirect_url}
         else:
-            return {"status": 400, "err_message": "正しく入力してください。"}
+            return {"status": 400, "err_message": "そのユーザはすでに存在するか、値を正しく入力してください。"}

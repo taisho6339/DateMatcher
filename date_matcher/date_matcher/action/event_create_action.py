@@ -23,5 +23,5 @@ class EventActionModel(object):
         DBSession.add(event)
 
 
-def get_hash_str(self):
-    return self.hash_str
+    def get_hash_str(self):
+        return self.hash_str

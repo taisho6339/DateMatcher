@@ -51,7 +51,7 @@ class EventDateAddAction(object):
             status = int(choose_method)
             if time.strftime('%Y/%m/%d') in self.dates:
                 status = choose_method ^ Date.STATUS_ACTIVE
-            date_list.append(Date(time, self.user._id, self.event._id, status))
+            date_list.append(Date(time.strftime('%Y/%m/%d'), self.user._id, self.event._id, status))
             time = time + timedelta(days=1)
         return date_list
 
@@ -71,6 +71,9 @@ class EventDateAddAction(object):
             self.user = DBSession.query(User).filter(User.event_id == self.event._id).filter(
                 User.name == self.params.get("user_name")
             ).first()
+
+        else:
+            return False
 
         date_list = self.create_date_list()
         for date in date_list:
